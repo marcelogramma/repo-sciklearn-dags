@@ -76,5 +76,4 @@ with DAG(
     upload_files = PythonOperator(
         task_id="upload_to_postgres_task", python_callable=to_postgres
     )
-
-from_s3 >> upload_files
+    from_s3 >> upload_files

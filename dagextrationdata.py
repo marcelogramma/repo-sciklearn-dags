@@ -25,6 +25,8 @@ from airflow.operators.python import PythonOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.utils.dates import days_ago
+import boto3
+import botocore
 
 # credentials
 bucket_name = 'ml-dataset-raw-s3'
@@ -37,44 +39,53 @@ aws_s3_secret_access_key = BaseHook.get_connection('aws_s3_secret_access_key').p
 
 def to_postgres():
     print(f"Getting data from {bucket_name }...")
-
-    con = f"{config.engine}" 
-    cs = con.cursor()
-    cs.execute('USE DATABASE %s;' % database_name)
- 
-    copy = (
-    "COPY into %s"
-    " from s3://%s/%s"
-    " credentials = (aws_key_id = '%s' aws_secret_key = '%s')"
-    " file_format = (type = csv field_delimiter = ','"
-    " field_optionally_enclosed_by = '\"'"
-    " skip_header = 1)"
-    " on_error = 'continue';"
-    % (table_name, bucket_name, bucket_key, aws_s3_access_key_id, aws_s3_secret_access_key)
+    s3_client = boto3.client(
+        "s3",
+        aws_access_key_id=aws_s3_access_key_id,
+        aws_secret_access_key=aws_s3_secret_access_key,
     )
- 
-    cs.execute(copy)
-    cs.close()
+    s3_client.download_file(bucket_name, bucket_key, '2009.csv')
+    print(f"Data downloaded from {bucket_name}...")
+    print(f"Inserting data into {database_name}...")
+    conn = f"{config.engine}"
+    cur = conn.cursor()
+    cur.execute(
+        f"CREATE TABLE IF NOT EXISTS {table_name} (fl_date date, op_carrier text, op_carrier_fl_num float, origin text, dest text, crs_dep_time float, dep_time float, dep_delay float, taxi_out float, wheels_off float, wheels_on float, taxi_in float, crs_air_time float, arr_time float, arr_delay float, cancelled float, cancellation_code float, diverted float, crs_elapsed_time float, actual_elapsed_time float, air_time float, distance float, carrier_delay float, wheater_delay float, nas_delay float, security_delay float, late_aircraft_delay float, unnamed float;"
+    )
+    conn.commit()
+    with open("2009.csv", "r") as file:
+        reader = csv.reader(file)
+        next(reader)
+        for row in reader:
+            cur.execute(
+                f"INSERT INTO {table_name} VALUES ({row[0]}, {row[1]}, {row[2]}, {row[3]}, {row[4]}, {row[5]}, {row[6]}, {row[7]}, {row[8]}, {row[9]}, {row[10]}, {row[11]}, {row[12]}, {row[13]}, {row[14]}, {row[15]}, {row[16]}, {row[17]}, {row[18]}, {row[19]}, {row[20]}, {row[21]}, {row[22]}, {row[23]}, {row[24]}, {row[25]}, {row[26]}, {row[27]}, {row[28]});"
+            )
+            conn.commit()
+    conn.close()
+    print(f"Data inserted into {database_name}...")
 
 DAG_DEFAULT_ARGS = {'owner': 'MG', 'depends_on_past': False, 'start_date': datetime.utcnow(), 'retries': 1, 'retry_delay': timedelta(minutes=5)}
 
 with DAG(
-    "extract_froms3_to_postgres",
+    dag_id='dagextrationdata',
     default_args=DAG_DEFAULT_ARGS,
-    schedule_interval="0 3 * * *",
-    catchup = False) as dag:
+    schedule_interval='@once',
+    catchup=False,
+) as dag:
 
-    from_s3 = S3KeySensor(task_id = 'from_s3_task',
-    poke_interval = 60 * 30,
-    timeout = 60 * 60 * 12,
-    bucket_key = "s3://%s/%s" % (bucket_name, bucket_key),
-    bucket_name = None,
-    wildcard_match = False,
-    dag = dag
-    )
-    upload_files = PythonOperator(task_id = "upload_to_postgres_task",
-    python_callable = to_postgres,
-    dag = dag
+    s3_key_sensor = S3KeySensor(
+        task_id='s3_key_sensor',
+        bucket_key=bucket_key,
+        bucket_name=bucket_name,
+        poke_interval=10,
+        timeout=60,
+        soft_fail=False,
     )
 
-from_s3 >> upload_files
+    postgres_operator = PostgresOperator(
+        task_id='postgres_operator',
+        postgres_conn_id='postgres_default',
+        sql=f"SELECT * FROM {table_name};",
+    )
+
+    s3_key_sensor >> postgres_operator

@@ -61,7 +61,8 @@ with DAG(
     "extract_froms3_to_postgres",
     default_args=DAG_DEFAULT_ARGS,
     schedule_interval="0 3 * * *",
-    catchup=False
+    catchup=False,
+    start_date=days_ago(1),
 ) as dag:
 
     from_s3 = S3KeySensor(task_id="from_s3_task",

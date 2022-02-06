@@ -37,7 +37,7 @@ aws_secret_key = BaseHook.get_connection('aws_s3_secret_access_key').password
 def to_postgres():
     print(f"Getting data from {bucket_name }...")
 
-    con = f"{config.engine}" 
+    con = config.engine
     cs = con.cursor()
     cs.execute('USE DATABASE %s;' % database_name)
  
@@ -49,7 +49,7 @@ def to_postgres():
     " field_optionally_enclosed_by = '\"'"
     " skip_header = 1)"
     " on_error = 'continue';"
-    % (table_name, bucket_name, bucket_key, aws_s3_access_key_id, aws_s3_secret_access_key)
+    % (table_name, bucket_name, bucket_key, aws_key_id, aws_secret_key)
     )
  
     cs.execute(copy)

@@ -38,7 +38,6 @@ def to_postgres():
     print(f"Getting data from {bucket_name }...")
 
     con = config.engine
-    con.execute('USE DATABASE %s;' % database_name)
  
     copy = (
     "COPY into %s"
@@ -51,8 +50,8 @@ def to_postgres():
     % (table_name, bucket_name, bucket_key, aws_key_id, aws_secret_key)
     )
  
-    cs.execute(copy)
-    cs.close()
+    con.execute(copy)
+    con.close()
 
 DAG_DEFAULT_ARGS = {'owner': 'MG', 'depends_on_past': False, 'start_date': datetime.utcnow(), 'retries': 1, 'retry_delay': timedelta(minutes=5)}
 

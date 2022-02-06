@@ -25,19 +25,16 @@ from airflow.operators.python import PythonOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.utils.dates import days_ago
-import botocore.session
-from botocore.config import Config
-from botocore.credentials import ReadOnlyCredentials
 import awswrangler as wr
 
 
-def from_s3(**kwargs):
+def from_s3():
     raw_s3_bucket = f"{config.BUCKET_RAW}"
     raw_path = f"s3://{raw_s3_bucket/}"
     raw_df = wr.s3.read_csv(path=raw_path)
     print (raw_df)
 
-    
+
 DAG_DEFAULT_ARGS = {'owner': 'MG', 'depends_on_past': False, 'start_date': datetime.utcnow(), 'retries': 1, 'retry_delay': timedelta(minutes=5)}
 
 with DAG(

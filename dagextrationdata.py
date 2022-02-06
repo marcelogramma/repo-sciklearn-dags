@@ -55,13 +55,12 @@ def to_postgres():
     cs.execute(copy)
     cs.close()
 
-DAG_DEFAULT_ARGS = {'owner': 'MG', 'retries': 0}
+DAG_DEFAULT_ARGS = {'owner': 'airflow', 'depends_on_past': False, 'start_date': datetime.utcnow(), 'retries': 1, 'retry_delay': timedelta(minutes=5)}
 
 with DAG(
     "extract_froms3_to_postgres",
     default_args=DAG_DEFAULT_ARGS,
     schedule_interval="0 3 * * *",
-    start_date=days_ago(1),
     catchup = False) as dag:
 
     from_s3 = S3KeySensor(task_id = 'from_s3_task',

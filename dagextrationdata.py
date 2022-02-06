@@ -31,8 +31,8 @@ bucket_name = 'ml-dataset-raw-s3'
 bucket_key = 's3://ml-dataset-raw-s3'
 database_name = f"{config.DB_NAME}"
 table_name = f"{config.TBL_NAME}"
-aws_s3_access_key_id = BaseHook.get_connection('ASIAWURQDCPRRXXPVLHG').password
-aws_s3_secret_access_key = BaseHook.get_connection('W4/ASG0aq9ALfDCW/2i1OYkpZkfmVV4XZspHtgiU').password
+aws_s3_access_key_id = BaseHook.get_connection('aws_s3_access_key_id').password
+aws_s3_secret_access_key = BaseHook.get_connection('aws_s3_secret_access_key').password
 
 def to_postgres():
     print(f"Getting data from {bucket_name }...")

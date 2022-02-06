@@ -55,22 +55,25 @@ def to_postgres():
     cs.execute(copy)
     cs.close()
 
-DAG_DEFAULT_ARGS = {"owner": "MG", "retries": 0}
-
-with DAG(
-    "extract_froms3_to_postgres",
-    default_args=DAG_DEFAULT_ARGS,
-    schedule_interval="0 3 * * *",
-    catchup=False,
-    start_date=days_ago(1),
-) as dag:
-
-    from_s3 = S3KeySensor(task_id="from_s3_task",
-    poke_interval=60 * 30,
-    timeout=60 * 60 * 12,
-    bucket_key="s3://%s/%s" % (bucket_name, bucket_key),
-    bucket_name=None,
-    wildcard_match=False,
-    )
-
-    from_s3
+DAG_DEFAULT_ARGS = {'owner': 'airflow', 'depends_on_past': False, 'start_date': datetime.utcnow(), 'retries': 1, 'retry_delay': timedelta(minutes=5)}
+ 
+with DAG(dag_id = "s3_postgres_pipeline",
+default_args = DAG_DEFAULT_ARGS,
+schedule_interval = "0 8 * * *",
+catchup = False) as dag:
+ 
+file_sensor = S3KeySensor(task_id = 's3_key_sensor_task',
+poke_interval = 60 * 30,
+timeout = 60 * 60 * 12,
+bucket_key = "s3://%s/%s" % (bucket_name, bucket_key),
+bucket_name = None,
+wildcard_match = False,
+dag = dag
+)
+ 
+upload_file = PythonOperator(task_id = "upload_to_postgres_task",
+python_callable = to_postgres,
+dag = dag
+)
+ 
+file_sensor >> upload_file

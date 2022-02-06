@@ -69,8 +69,8 @@ with DAG(
     bucket_key = "s3://%s/%s" % (bucket_name, bucket_key),
     bucket_name = None,
     wildcard_match = False,
-    dag = dag
     )
+    
     upload_files = PythonOperator(task_id = "upload_to_postgres_task",
     python_callable = to_postgres,
     dag = dag

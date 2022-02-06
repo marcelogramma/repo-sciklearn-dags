@@ -65,7 +65,12 @@ with DAG(
     start_date=days_ago(1),
 ) as dag:
 
-    upload_files = PythonOperator(
-        task_id="upload_to_postgres_task", python_callable=to_postgres
+    from_s3 = S3KeySensor(task_id="from_s3_task",
+    poke_interval=60 * 30,
+    timeout=60 * 60 * 12,
+    bucket_key="s3://%s/%s" % (bucket_name, bucket_key),
+    bucket_name=None,
+    wildcard_match=False,
     )
-    upload_files
+
+    from_s3

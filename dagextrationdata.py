@@ -34,7 +34,7 @@ table_name = f"{config.TBL_NAME}"
 aws_s3_access_key_id = BaseHook.get_connection('ASIAWURQDCPRRXXPVLHG').password
 aws_s3_secret_access_key = BaseHook.get_connection('W4/ASG0aq9ALfDCW/2i1OYkpZkfmVV4XZspHtgiU').password
 
-def extract_data_S3():
+def to_postgres():
     print(f"Getting data from {bucket_name }...")
 
     con = f"{config.engine}" 
@@ -62,8 +62,8 @@ with DAG(
     default_args=DAG_DEFAULT_ARGS,
     schedule_interval="0 3 * * *",
     catchup = False) as dag:
-    
-    from_s3_to_db = S3KeySensor(task_id = 's3_to_db_task',
+
+    from_s3 = S3KeySensor(task_id = 'from_s3_task',
     poke_interval = 60 * 30,
     timeout = 60 * 60 * 12,
     bucket_key = "s3://%s/%s" % (bucket_name, bucket_key),
@@ -71,5 +71,9 @@ with DAG(
     wildcard_match = False,
     dag = dag
     )
+    upload_files = PythonOperator(task_id = "upload_to_postgres_task",
+    python_callable = to_postgres,
+    dag = dag
+    )
 
-from_s3_to_db
+from_s3 >> upload_files

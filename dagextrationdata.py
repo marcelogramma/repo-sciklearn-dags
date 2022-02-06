@@ -28,7 +28,7 @@ from airflow.utils.dates import days_ago
 
 # credentials
 bucket_name = 'ml-dataset-raw-s3'
-bucket_key = '2009.csv
+bucket_key = '2009.csv'
 database_name = f"{config.DB_NAME}"
 table_name = f"{config.TBL_NAME}"
 aws_key_id = BaseHook.get_connection('aws_s3_access_key_id').password

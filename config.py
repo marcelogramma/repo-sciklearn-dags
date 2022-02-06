@@ -9,6 +9,7 @@ DB_PORT = "5432"
 DB_NAME = "ml-rds-postgresfrom-s3"
 DB_NAME_BASE = "postgres"
 TBL_NAME = "ml_table_from_s3"
+BUCKET_RAW = "ml-dataset-raw-s3"
 conn_db = "postgresql://{DB_USER}:{DB_PASS}@{IP}:{DB_PORT}/{DB_NAME_BASE}"
 engine = create_engine(f"postgresql://{DB_USER}:{DB_PASS}@{IP}:{DB_PORT}/{DB_NAME}")
 engine2 = create_engine(

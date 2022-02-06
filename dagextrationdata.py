@@ -25,6 +25,9 @@ from airflow.operators.python import PythonOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.utils.dates import days_ago
+import botocore.session
+from botocore.config import Config
+from botocore.credentials import ReadOnlyCredentials
 
 # credentials
 bucket_name = 'ml-dataset-raw-s3'

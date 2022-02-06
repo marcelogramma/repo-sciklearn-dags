@@ -55,7 +55,7 @@ def to_postgres():
     cs.execute(copy)
     cs.close()
 
-DAG_DEFAULT_ARGS = {'owner': 'MG', 'depends_on_past': False, 'start_date': datetime.utcnow(), 'retries': 1, 'retry_delay': timedelta(minutes=5)}
+DAG_DEFAULT_ARGS = {'owner': 'MG', 'retries': 1}
 
 with DAG(
     "extract_froms3_to_postgres",

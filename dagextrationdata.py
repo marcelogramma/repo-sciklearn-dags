@@ -38,8 +38,7 @@ def to_postgres():
     print(f"Getting data from {bucket_name }...")
 
     con = config.engine
-    cs = con.cursor()
-    cs.execute('USE DATABASE %s;' % database_name)
+    con.execute('USE DATABASE %s;' % database_name)
  
     copy = (
     "COPY into %s"

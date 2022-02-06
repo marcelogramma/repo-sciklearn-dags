@@ -29,8 +29,7 @@ import awswrangler as wr
 
 
 def from_s3():
-    raw_s3_bucket = f"{config.BUCKET_RAW}"
-    raw_path = f"s3://{raw_s3_bucket/}"
+    raw_path = f"s3://{config.BUCKET_RAW}/"
     raw_df = wr.s3.read_csv(path=raw_path)
     print (raw_df)
 

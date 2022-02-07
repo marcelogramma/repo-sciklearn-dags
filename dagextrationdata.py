@@ -46,8 +46,9 @@ def extract_load_data():
 
     insert = con.execute(
         COPY f"{config.TBL_NAME}"
-        FROM '{raw_df}'
-        DELIMITER ',' CSV HEADER;
+        FROM {raw_df}
+        DELIMITER ',' 
+        CSV HEADER;
     )
     insert.close()
     

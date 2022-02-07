@@ -28,7 +28,7 @@ from airflow.utils.dates import days_ago
 import awswrangler as wr
 
 
-def from_s3():
+def extract_load_data():
     print(f"Getting data from {config.BUCKET_RAW}...")
     raw_path = f"s3://{config.BUCKET_RAW}/"
     raw_df = wr.s3.read_csv(path=raw_path)
@@ -38,10 +38,41 @@ def from_s3():
     con.execute(
         f"CREATE TABLE IF NOT EXISTS {config.TBL_NAME} (id BIGSERIAL PRIMARY KEY, fl_date date, op_carrier text, op_carrier_fl_num float, origin text, dest text, crs_dep_time float, dep_time float, dep_delay float, taxi_out float, wheels_off float, wheels_on float, taxi_in float, crs_air_time float, arr_time float, arr_delay float, cancelled float, cancellation_code float, diverted float, crs_elapsed_time float, actual_elapsed_time float, air_time float, distance float, carrier_delay float, wheater_delay float, nas_delay float, security_delay float, late_aircraft_delay float, unnamed float)"
     )
-    for row in raw_df():
-        con.execute(
-            f"INSERT INTO {config.TBL_NAME} VALUES ({row[0]}, {row[1]}, {row[2]}, {row[3]}, {row[4]}, {row[5]}, {row[6]}, {row[7]}, {row[8]}, {row[9]}, {row[10]}, {row[11]}, {row[12]}, {row[13]}, {row[14]}, {row[15]}, {row[16]}, {row[17]}, {row[18]}, {row[19]}, {row[20]}, {row[21]}, {row[22]}, {row[23]}, {row[24]}, {row[25]}, {row[26]}, {row[27]}, {row[28]});"
-        )
+    """
+    INSERT INTO {config.TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed)
+    values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """,
+    (
+        raw_df[0],
+        raw_df[1],
+        raw_df[2],
+        raw_df[3],
+        raw_df[4],
+        raw_df[5],
+        raw_df[6],
+        raw_df[7],
+        raw_df[8],
+        raw_df[9],
+        raw_df[10],
+        raw_df[11],
+        raw_df[12],
+        raw_df[13],
+        raw_df[14],
+        raw_df[15],
+        raw_df[16],
+        raw_df[17],
+        raw_df[18],
+        raw_df[19],
+        raw_df[20],
+        raw_df[21],
+        raw_df[22],
+        raw_df[23],
+        raw_df[24],
+        raw_df[25],
+        raw_df[26],
+        raw_df[27],
+        raw_df[28],
+    )
 
     con.close()
     print(f"Data inserted into {config.DB_NAME}...")
@@ -54,8 +85,8 @@ with DAG(
     schedule_interval="0 3 * * *",
     catchup = False) as dag:
 
-    from_s3 = PythonOperator(task_id="from_s3", python_callable=from_s3,
+    from_s3_to_postgres = PythonOperator(task_id="extract_load_data,", python_callable=extract_load_data,
     dag = dag
     )
 
-from_s3
+from_s3_to_postgres

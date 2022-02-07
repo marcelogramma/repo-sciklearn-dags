@@ -33,10 +33,6 @@ def extract_load_data():
     raw_path = f"s3://{config.BUCKET_RAW}/"
     raw_df = wr.s3.read_csv(path=raw_path)
     print (raw_df)
-    
-    con0 = config.engine
-    create_db = con0.execute(f"CREATE DATABASE {config.DB_NAME}")
-    create_db.close()
 
     con = config.engine
     create_table = con.execute(

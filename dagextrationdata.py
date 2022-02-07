@@ -34,7 +34,7 @@ def extract_load_data():
     raw_df = wr.s3.read_csv(path=raw_path)
     print (raw_df)
     with open(f"get_data.csv", "w") as f:
-        csv.writer(raw_df, f)
+        raw_df.to_csv(f)
     
 
     con = config.engine
@@ -44,7 +44,7 @@ def extract_load_data():
     create_table.close()
 
     with open(f"getdata.csv", "r") as f:
-        read_get_data = csv.reader(f)
+        read_get_data = raw_df.read_csv(f)
 
     insert = con.execute(
         f"INSERT INTO {config.TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed) VALUES %s",

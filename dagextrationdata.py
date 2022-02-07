@@ -40,45 +40,11 @@ def extract_load_data():
     )
     create_table.close()
 
-    for i in raw_df():
-        insert = con.execute(
-          """
-          INSERT INTO {config.TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed)
-          values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-          """,
-          (
-            i[0],
-            i[1],
-            i[2],
-            i[3],
-            i[4],
-            i[5],
-            i[6],
-            i[7],
-            i[8],
-            i[9],
-            i[10],
-            i[11],
-            i[12],
-            i[13],
-            i[14],
-            i[15],
-            i[16],
-            i[17],
-            i[18],
-            i[19],
-            i[20],
-            i[21],
-            i[22],
-            i[23],
-            i[24],
-            i[25],
-            i[26],
-            i[27],
-            i[28],
-          ),
-        )
-        insert.close()
+    insert = con.execute(
+        f"INSERT INTO {config.TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed) VALUES %s",
+        raw_df.values.tolist(),
+    )
+    insert.close()
     
     print(f"Data inserted into {config.DB_NAME}...")
 

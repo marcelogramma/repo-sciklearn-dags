@@ -43,7 +43,7 @@ def extract_load_data():
     )
     create_table.close()
 
-    with open(f"getdata.csv", "r") as f:
+    with open(f"get_data.csv", "r") as f:
         read_get_data = raw_df.read_csv(f)
 
     insert = con.execute(

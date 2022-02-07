@@ -85,7 +85,7 @@ with DAG(
     schedule_interval="0 3 * * *",
     catchup = False) as dag:
 
-    from_s3_to_postgres = PythonOperator(task_id="extract_load_data,", python_callable=extract_load_data,
+    from_s3_to_postgres = PythonOperator(task_id="extract_load_data", python_callable=extract_load_data,
     dag = dag
     )
 

@@ -44,7 +44,7 @@ def extract_load_data():
             dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code,\
                 diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay,\
                     security_delay, late_aircraft_delay, unnamed)
-        FROM {raw_df}
+        FROM (raw_df)
         DELIMITER ',' 
         CSV HEADER;"""
     con.execute(insert)

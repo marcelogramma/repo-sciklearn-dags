@@ -44,13 +44,13 @@ def extract_load_data():
     create_table.close()
 
     with open(f"get_data.csv", "r") as f:
-        read_get_data = csv.reader(get_data.csv, delimiter=',')
-
-    insert = con.execute(
-        f"INSERT INTO {config.TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed) VALUES %s",
-        read_get_data.values.tolist(),
-    )
-    insert.close()
+        csv_reader = csv.reader(get_data.csv, delimiter=',')
+        for row in f:
+                insert = con.execute(
+                    f"INSERT INTO {config.TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed) VALUES %s",
+                    row.values.tolist(),
+                )
+                insert.close()
     
     print(f"Data inserted into {config.DB_NAME}...")
 

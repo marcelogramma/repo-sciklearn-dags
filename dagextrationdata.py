@@ -33,9 +33,10 @@ def extract_load_data():
     raw_path = f"s3://{config.BUCKET_RAW}/"
     raw_df = wr.s3.read_csv(path=raw_path)
     print (raw_df)
-    with open(f"get_data.csv", "w") as f:
-        raw_df.to_csv(f)
     
+    con0 = config.engine
+    create_db = con0.execute(f"CREATE DATABASE {config.DB_NAME}")
+    create_db.close()
 
     con = config.engine
     create_table = con.execute(
@@ -43,14 +44,12 @@ def extract_load_data():
     )
     create_table.close()
 
-    with open(f"get_data.csv", "r") as f:
-        csv_reader = csv.reader(get_data.csv, delimiter=',')
-        for row in f:
-                insert = con.execute(
-                    f"INSERT INTO {config.TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed) VALUES %s",
-                    row.values.tolist(),
-                )
-                insert.close()
+    insert = con.execute(
+        f"COPY {config.TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed)
+        FROM '{raw_df}'
+        DELIMITER ',' CSV HEADER;"
+    )
+    insert.close()
     
     print(f"Data inserted into {config.DB_NAME}...")
 

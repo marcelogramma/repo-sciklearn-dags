@@ -40,44 +40,45 @@ def extract_load_data():
     )
     create_table.close()
 
-    insert = con.execute(
-      """
-      INSERT INTO {config.TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed)
-      values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-      """,
-      (
-        raw_df[0],
-        raw_df[1],
-        raw_df[2],
-        raw_df[3],
-        raw_df[4],
-        raw_df[5],
-        raw_df[6],
-        raw_df[7],
-        raw_df[8],
-        raw_df[9],
-        raw_df[10],
-        raw_df[11],
-        raw_df[12],
-        raw_df[13],
-        raw_df[14],
-        raw_df[15],
-        raw_df[16],
-        raw_df[17],
-        raw_df[18],
-        raw_df[19],
-        raw_df[20],
-        raw_df[21],
-        raw_df[22],
-        raw_df[23],
-        raw_df[24],
-        raw_df[25],
-        raw_df[26],
-        raw_df[27],
-        raw_df[28],
-      ),
-    )
-    insert.close()
+    for i in raw_df():
+        insert = con.execute(
+          """
+          INSERT INTO {config.TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed)
+          values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+          """,
+          (
+            raw_df[0],
+            raw_df[1],
+            raw_df[2],
+            raw_df[3],
+            raw_df[4],
+            raw_df[5],
+            raw_df[6],
+            raw_df[7],
+            raw_df[8],
+            raw_df[9],
+            raw_df[10],
+            raw_df[11],
+            raw_df[12],
+            raw_df[13],
+            raw_df[14],
+            raw_df[15],
+            raw_df[16],
+            raw_df[17],
+            raw_df[18],
+            raw_df[19],
+            raw_df[20],
+            raw_df[21],
+            raw_df[22],
+            raw_df[23],
+            raw_df[24],
+            raw_df[25],
+            raw_df[26],
+            raw_df[27],
+            raw_df[28],
+          ),
+        )
+        insert.close()
     
     print(f"Data inserted into {config.DB_NAME}...")
 

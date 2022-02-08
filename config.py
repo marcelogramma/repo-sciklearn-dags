@@ -16,5 +16,7 @@ engine2 = create_engine(
     f"postgresql://{DB_USER}:{DB_PASS}@{IP}:{DB_PORT}/{DB_NAME_BASE}"
 )
 
+engine_pg8000 = create_engine(f"postgresql+pg8000://{DB_USER}:{DB_PASS}@{IP}:{DB_PORT}/{DB_NAME}")
+
 if __name__ == "__main__":
     ()

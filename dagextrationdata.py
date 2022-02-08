@@ -27,6 +27,7 @@ from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.utils.dates import days_ago
 import awswrangler as wr
 import pg8000.native
+import pg8000
 
 
 def extract_load_data():
@@ -41,7 +42,8 @@ def extract_load_data():
     )
     create_table.close()
 
-    wr.postgresql.to_sql(raw_df, pg8000.connect(con), schema="public", table="{config.TBL_NAME}", mode="overwrite")
+    con2 = pg8000.native.Connection({config.engine_pg8000})
+    wr.postgresql.to_sql(raw_df, con2, schema="public", table=config.TBL_NAME, mode="overwrite")
     
     print(f"Data inserted into {config.DB_NAME}...")
 

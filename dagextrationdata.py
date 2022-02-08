@@ -33,52 +33,15 @@ def extract_load_data():
     raw_path = f"s3://{config.BUCKET_RAW}/"
     raw_df = wr.s3.read_csv(path=raw_path)
     print (raw_df)
+    result = pd[raw_df]
+
+    print(result)
 
     con = config.engine
     create_table = con.execute(
         f"CREATE TABLE IF NOT EXISTS {config.TBL_NAME} (id BIGSERIAL PRIMARY KEY, fl_date date, op_carrier text, op_carrier_fl_num float, origin text, dest text, crs_dep_time float, dep_time float, dep_delay float, taxi_out float, wheels_off float, wheels_on float, taxi_in float, crs_air_time float, arr_time float, arr_delay float, cancelled float, cancellation_code float, diverted float, crs_elapsed_time float, actual_elapsed_time float, air_time float, distance float, carrier_delay float, wheater_delay float, nas_delay float, security_delay float, late_aircraft_delay float, unnamed float)"
     )
     create_table.close()
-
-    insert = con.execute(
-        """
-        INSERT INTO {config.TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed) SELECT fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """,
-        (
-            raw_df.iloc[0],
-            raw_df.iloc[1],
-            raw_df.iloc[2],
-            raw_df.iloc[3],
-            raw_df.iloc[4],
-            raw_df.iloc[5],
-            raw_df.iloc[6],
-            raw_df.iloc[7],
-            raw_df.iloc[8],
-            raw_df.iloc[9],
-            raw_df.iloc[10],
-            raw_df.iloc[11],
-            raw_df.iloc[12],
-            raw_df.iloc[13],
-            raw_df.iloc[14],
-            raw_df.iloc[15],
-            raw_df.iloc[16],
-            raw_df.iloc[17],
-            raw_df.iloc[18],
-            raw_df.iloc[19],
-            raw_df.iloc[28],
-            raw_df.iloc[21],
-            raw_df.iloc[22],
-            raw_df.iloc[23],
-            raw_df.iloc[24],
-            raw_df.iloc[25],
-            raw_df.iloc[26],
-            raw_df.iloc[27],
-            raw_df.iloc[28],
-        ),
-
-    )
-    insert.close()
     
     print(f"Data inserted into {config.DB_NAME}...")
 

@@ -10,7 +10,7 @@ from airflow.operators.python_operator import PythonOperator
 
 def extract_load_data():
     print(f"Getting data from {config.BUCKET_RAW}...")
-    raw_path = f"s3://{config.BUCKET_RAW}/"
+    raw_path = f"s3://{config.BUCKET_RAW}/raw/"
     raw_df = wr.s3.read_csv(path=raw_path)
     print (raw_df)
     

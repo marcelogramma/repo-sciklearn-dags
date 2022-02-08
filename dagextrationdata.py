@@ -33,9 +33,6 @@ def extract_load_data():
     raw_path = f"s3://{config.BUCKET_RAW}/"
     raw_df = wr.s3.read_csv(path=raw_path)
     print (raw_df)
-    result = list(zip(raw_df['fl_date'], raw_df['op_carrier'], raw_df['op_carrier_fl_num'], raw_df['op_carrier_fl_num'], raw_df['origin'], raw_df['dest'], raw_df['crs_dep_time'], raw_df['dep_time'], raw_df['dep_delay'], raw_df['taxi_out'], raw_df['wheels_off'], raw_df['wheels_on'], raw_df['taxi_in'], raw_df['crs_air_time'], raw_df['arr_time'], raw_df['arr_delay'], raw_df['cancelled'], raw_df['cancellation_code'], raw_df['diverted'], raw_df['crs_elapsed_time'], raw_df['actual_elapsed_time'], raw_df['air_time'], raw_df['distance'], raw_df['carrier_delay'], raw_df['wheater_delay'], raw_df['nas_delay'], raw_df['security_delay'], raw_df['late_aircraft_delay'], raw_df['unnamed']))
-#    result = pd.DataFrame(result, columns=['fl_date', 'op_carrier', 'op_carrier_fl_num', 'origin', 'dest', 'crs_dep_time', 'dep_time', 'dep_delay', 'taxi_out', 'wheels_off', 'wheels_on', 'taxi_in', 'crs_air_time', 'arr_time', 'arr_delay', 'cancelled', 'cancellation_code', 'diverted', 'crs_elapsed_time', 'actual_elapsed_time', 'air_time', 'distance', 'carrier_delay', 'wheater_delay', 'nas_delay', 'security_delay', 'late_aircraft_delay', 'unnamed'])
-    print(result)
 
     con = config.engine
     create_table = con.execute(
@@ -43,7 +40,15 @@ def extract_load_data():
     )
     create_table.close()
     
-    print(f"Data inserted into {config.DB_NAME}...")
+    print(f"Writing data to {config.DB_NAME}...")
+    raw_df.to_sql(
+        name=config.TBL_NAME,
+        con=config.engine,
+        schema = "public",
+        if_exists="replace",
+        index=False,
+    )
+    print(f"Data written to {config.DB_NAME}")
 
 DAG_DEFAULT_ARGS = {'owner': 'MG', 'depends_on_past': False, 'start_date': datetime.utcnow(), 'retries': 1, 'retry_delay': timedelta(minutes=5)}
 

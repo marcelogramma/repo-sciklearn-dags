@@ -30,7 +30,7 @@ DAG_DEFAULT_ARGS = {'owner': 'MG', 'depends_on_past': False, 'start_date': datet
 with DAG(
     "extract_load_data",
     default_args=DAG_DEFAULT_ARGS,
-    schedule_interval="0 3 * * *",
+    schedule_interval="@yearly",
     catchup = False) as dag:
 
     from_s3_to_postgres = PythonOperator(task_id="extract_load_data", python_callable=extract_load_data,

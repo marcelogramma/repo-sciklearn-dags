@@ -5,6 +5,7 @@ from datetime import date
 from airflow.models import DAG
 from airflow.utils.dates import days_ago
 import awswrangler as wr
+from airflow.operators.python_operator import PythonOperator
 
 
 def extract_load_data():

@@ -33,20 +33,15 @@ def extract_load_data():
     raw_path = f"s3://{config.BUCKET_RAW}/"
     raw_df = wr.s3.read_csv(path=raw_path)
     print (raw_df)
-
-    con = config.engine
-    create_table = con.execute(
-        f"CREATE TABLE IF NOT EXISTS {config.TBL_NAME} (id BIGSERIAL PRIMARY KEY, fl_date date, op_carrier text, op_carrier_fl_num float, origin text, dest text, crs_dep_time float, dep_time float, dep_delay float, taxi_out float, wheels_off float, wheels_on float, taxi_in float, crs_air_time float, arr_time float, arr_delay float, cancelled float, cancellation_code float, diverted float, crs_elapsed_time float, actual_elapsed_time float, air_time float, distance float, carrier_delay float, wheater_delay float, nas_delay float, security_delay float, late_aircraft_delay float, unnamed float)"
-    )
-    create_table.close()
     
     print(f"Writing data to {config.DB_NAME}...")
+    
     raw_df.to_sql(
         name=config.TBL_NAME,
         con=config.engine,
         schema = "public",
         if_exists="replace",
-        index=False,
+        index=True,
     )
     print(f"Data written to {config.DB_NAME}")
 

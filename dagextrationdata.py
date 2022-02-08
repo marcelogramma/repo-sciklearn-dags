@@ -42,7 +42,7 @@ def extract_load_data():
     )
     create_table.close()
     
-    con2 = pg8000.connect(user="postgres", password="postgres",database="ml-rds-postgresfrom-s3")
+    con2 = pg8000.connect(host="ml-rds-postgres.cxer4qyvikrv.us-east-1.rds.amazonaws.com", port="5432", user="postgres", password="postgres", database="ml-rds-postgresfrom-s3")
     cursor = con2.cursor()
     wr.postgresql.to_sql(raw_df, cursor, schema="public", table=config.TBL_NAME, mode="overwrite")
     

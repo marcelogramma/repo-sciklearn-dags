@@ -40,44 +40,7 @@ def extract_load_data():
     )
     create_table.close()
 
-    insert = con.execute(
-        """
-        INSERT INTO {config.TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed) SELECT fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """,
-        (
-            raw_df["fl_date"].iloc[1],
-            raw_df["op_carrier"].iloc[1],
-            raw_df["op_carrier_fl_num"].iloc[1],
-            raw_df["origin"].iloc[1],
-            raw_df["dest"].iloc[1],
-            raw_df["crs_dep_time"].iloc[1],
-            raw_df["dep_time"].iloc[1],
-            raw_df["dep_delay"].iloc[1],
-            raw_df["taxi_out"].iloc[1],
-            raw_df["wheels_off"].iloc[1],
-            raw_df["wheels_on"].iloc[1],
-            raw_df["taxi_in"].iloc[1],
-            raw_df["crs_air_time"].iloc[1],
-            raw_df["arr_time"].iloc[1],
-            raw_df["arr_delay"].iloc[1],
-            raw_df["cancelled"].iloc[1],
-            raw_df["cancellation_code"].iloc[1],
-            raw_df["diverted"].iloc[1],
-            raw_df["crs_elapsed_time"].iloc[1],
-            raw_df["actual_elapsed_time"].iloc[1],
-            raw_df["air_time"].iloc[1],
-            raw_df["distance"].iloc[1],
-            raw_df["carrier_delay"].iloc[1],
-            raw_df["wheater_delay"].iloc[1],
-            raw_df["nas_delay"].iloc[1],
-            raw_df["security_delay"].iloc[1],
-            raw_df["late_aircraft_delay"].iloc[1],
-            raw_df["unnamed"].iloc[1],
-        ),
-
-    )
-    insert.close()
+    wr.postgresql.to_sql(raw_df, config.engine, schema="public", table="{config.TBL_NAME}", mode="overwrite")
     
     print(f"Data inserted into {config.DB_NAME}...")
 

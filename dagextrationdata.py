@@ -1,29 +1,8 @@
-import requests
-import json
-import csv
 from datetime import datetime, timedelta
 from airflow import DAG
-from airflow.hooks.base_hook import BaseHook
-from airflow.operators.python_operator import PythonOperator
-from airflow.sensors.s3_key_sensor import S3KeySensor
 import config as config
-from datetime import datetime
-from pathlib import Path
-import sqlalchemy.exc
-import psycopg2
-from sqlalchemy import create_engine
 from datetime import date
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
-from matplotlib.dates import WeekdayLocator, DateFormatter, MonthLocator
-import matplotlib.ticker as ticker
-from matplotlib.ticker import MultipleLocator, FormatStrFormatter, AutoMinorLocator
-import numpy as np
-import pandas as pd
 from airflow.models import DAG
-from airflow.operators.python import PythonOperator
-from airflow.providers.postgres.hooks.postgres import PostgresHook
-from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.utils.dates import days_ago
 import awswrangler as wr
 

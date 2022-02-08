@@ -33,7 +33,7 @@ def extract_load_data():
     raw_path = f"s3://{config.BUCKET_RAW}/"
     raw_df = wr.s3.read_csv(path=raw_path)
     print (raw_df)
-    result = pd[raw_df]
+    result = pd.DataFrame[raw_df]
 
     print(result)
 

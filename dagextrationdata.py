@@ -40,7 +40,7 @@ def extract_load_data():
     )
     create_table.close()
 
-    wr.postgresql.to_sql(raw_df, config.engine, schema="public", table="{config.TBL_NAME}", mode="overwrite")
+    wr.postgresql.to_sql(raw_df, con, schema="public", table="{config.TBL_NAME}", mode="overwrite")
     
     print(f"Data inserted into {config.DB_NAME}...")
 

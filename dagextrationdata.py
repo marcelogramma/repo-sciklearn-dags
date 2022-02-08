@@ -41,9 +41,10 @@ def extract_load_data():
         f"CREATE TABLE IF NOT EXISTS {config.TBL_NAME} (id BIGSERIAL PRIMARY KEY, fl_date date, op_carrier text, op_carrier_fl_num float, origin text, dest text, crs_dep_time float, dep_time float, dep_delay float, taxi_out float, wheels_off float, wheels_on float, taxi_in float, crs_air_time float, arr_time float, arr_delay float, cancelled float, cancellation_code float, diverted float, crs_elapsed_time float, actual_elapsed_time float, air_time float, distance float, carrier_delay float, wheater_delay float, nas_delay float, security_delay float, late_aircraft_delay float, unnamed float)"
     )
     create_table.close()
-
-    con2 = pg8000.connect({config.engine_pg8000})
-    wr.postgresql.to_sql(raw_df, con2, schema="public", table=config.TBL_NAME, mode="overwrite")
+    
+    con2 = pg8000.connect(user="postgres", password="postgres",database="ml-rds-postgresfrom-s3")
+    cursor = con2.cursor()
+    wr.postgresql.to_sql(raw_df, cursor, schema="public", table=config.TBL_NAME, mode="overwrite")
     
     print(f"Data inserted into {config.DB_NAME}...")
 

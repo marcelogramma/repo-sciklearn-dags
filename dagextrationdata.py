@@ -42,9 +42,40 @@ def extract_load_data():
 
     insert = con.execute(
         """
-        INSERT INTO {TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed) SELECT fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed
-        FROM {raw_df}
-        """.format(TBL_NAME=config.TBL_NAME, raw_df=raw_df)
+        INSERT INTO {config.TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed) SELECT fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """,
+        (
+            raw_df["fl_date"][1],
+            raw_df["op_carrier"][2],
+            raw_df["op_carrier_fl_num"][3],
+            raw_df["origin"][4],
+            raw_df["dest"][5],
+            raw_df["crs_dep_time"][6],
+            raw_df["dep_time"][7],
+            raw_df["dep_delay"][8],
+            raw_df["taxi_out"][9],
+            raw_df["wheels_off"][10],
+            raw_df["wheels_on"][11],
+            raw_df["taxi_in"][12],
+            raw_df["crs_air_time"][13],
+            raw_df["arr_time"][14],
+            raw_df["arr_delay"][15],
+            raw_df["cancelled"][16],
+            raw_df["cancellation_code"][17],
+            raw_df["diverted"][18],
+            raw_df["crs_elapsed_time"][19],
+            raw_df["actual_elapsed_time"][20],
+            raw_df["air_time"][21],
+            raw_df["distance"][22],
+            raw_df["carrier_delay"][23],
+            raw_df["wheater_delay"][24],
+            raw_df["nas_delay"][25],
+            raw_df["security_delay"][26],
+            raw_df["late_aircraft_delay"][27],
+            raw_df["unnamed"][28],
+        ),
+
     )
     insert.close()
     

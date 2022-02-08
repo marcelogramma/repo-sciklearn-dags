@@ -43,39 +43,8 @@ def extract_load_data():
     insert = con.execute(
         """
         INSERT INTO {config.TBL_NAME} (fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed) SELECT fl_date, op_carrier, op_carrier_fl_num, origin, dest, crs_dep_time, dep_time, dep_delay, taxi_out, wheels_off, wheels_on, taxi_in, crs_air_time, arr_time, arr_delay, cancelled, cancellation_code, diverted, crs_elapsed_time, actual_elapsed_time, air_time, distance, carrier_delay, wheater_delay, nas_delay, security_delay, late_aircraft_delay, unnamed)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """,
-        (
-            raw_df["fl_date"],
-            raw_df["op_carrier"],
-            raw_df["op_carrier_fl_num"],
-            raw_df["origin"],
-            raw_df["dest"],
-            raw_df["crs_dep_time"],
-            raw_df["dep_time"],
-            raw_df["dep_delay"],
-            raw_df["taxi_out"],
-            raw_df["wheels_off"],
-            raw_df["wheels_on"],
-            raw_df["taxi_in"],
-            raw_df["crs_air_time"],
-            raw_df["arr_time"],
-            raw_df["arr_delay"],
-            raw_df["cancelled"],
-            raw_df["cancellation_code"],
-            raw_df["diverted"],
-            raw_df["crs_elapsed_time"],
-            raw_df["actual_elapsed_time"],
-            raw_df["air_time"],
-            raw_df["distance"],
-            raw_df["carrier_delay"],
-            raw_df["wheater_delay"],
-            raw_df["nas_delay"],
-            raw_df["security_delay"],
-            raw_df["late_aircraft_delay"],
-            raw_df["unnamed"],
-        ),
-
+        FROM {raw_df}
+        """.format(config.TBL_NAME=config.TBL_NAME, raw_df=raw_df)
     )
     insert.close()
     

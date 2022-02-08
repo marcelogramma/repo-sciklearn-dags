@@ -42,7 +42,7 @@ def extract_load_data():
     )
     create_table.close()
 
-    con2 = {config.engine_pg8000}
+    con2 = pg8000.connect({config.engine_pg8000})
     wr.postgresql.to_sql(raw_df, con2, schema="public", table=config.TBL_NAME, mode="overwrite")
     
     print(f"Data inserted into {config.DB_NAME}...")

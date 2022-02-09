@@ -24,17 +24,16 @@ def extract_load_data():
 #                          Tranformation data
 #     calcular promedio del tiempo de salida por dia por aeropuerto
 ######################################################################
-    raw_ave_delay = raw_df['DEP_DELAY'], raw_df['ORIGIN'], raw_df['FL_DATE']
-#    raw_ave_delay = raw_df.groupby(['ORIGIN', 'FL_DATE'])['DEP_DELAY'].mean()
-    end_ave_delay = raw_ave_delay.groupby(['ORIGIN', 'FL_DATE'])['DEP_DELAY'].mean()
+#    raw_ave_delay = raw_df['DEP_DELAY'], raw_df['ORIGIN'], raw_df['FL_DATE']
+    raw_ave_delay = raw_df.groupby(['ORIGIN', 'FL_DATE'])['DEP_DELAY'].mean()
     print(f"The average delay is")
-    print(end_ave_delay)
+    print(raw_ave_delay)
 
 ######################################################################
 #              Load data to Postgres
 #               insersion en la DB
 ######################################################################
-    end_ave_delay.to_sql(
+    raw_ave_delay.to_sql(
         name=config.TBL_NAME,
         con=config.engine,
         schema = "public",

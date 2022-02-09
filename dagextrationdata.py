@@ -7,6 +7,10 @@ from airflow.utils.dates import days_ago
 import awswrangler as wr
 from airflow.operators.python_operator import PythonOperator
 
+######################################################################
+#
+#                     Extration Data from S3
+######################################################################
 
 def extract_load_data():
     print(f"Getting data from {config.BUCKET_RAW}...")
@@ -16,7 +20,18 @@ def extract_load_data():
     
     print(f"Writing data to {config.DB_NAME}...")
     
-    raw_df.to_sql(
+######################################################################
+#                          Tranformation data
+#     calcular promedio del tiempo de salida por dia por aeropuerto
+######################################################################
+    raw_ave_df = raw_df['DEP_DELAY', 'ORIGIN', 'FL_DATE']
+    print(raw_ave_df)
+
+######################################################################
+#              Load data to Postgres
+#               insersion en la DB
+######################################################################
+    raw_ave_df.to_sql(
         name=config.TBL_NAME,
         con=config.engine,
         schema = "public",

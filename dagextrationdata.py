@@ -24,7 +24,7 @@ def extract_load_data():
 #                          Tranformation data
 #     calcular promedio del tiempo de salida por dia por aeropuerto
 ######################################################################
-    raw_ave_delay = raw_df['DEP_DELAY'].mean()
+    raw_ave_delay = raw_df['DEP_DELAY'].mean(), raw_df['ORIGIN'], raw_df['FL_DATE']
     raw_select_df = raw_df['ORIGIN'], raw_df['FL_DATE']
     print(f"The average delay is")
     print(raw_ave_delay)

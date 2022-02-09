@@ -26,7 +26,8 @@ def extract_load_data():
 ######################################################################
     raw_ave_delay = raw_df['DEP_DELAY'].mean()
     raw_select_df = raw_df['ORIGIN'], raw_df['FL_DATE']
-    print (f"The average delay is" (raw_ave_delay))
+    print(f"The average delay is")
+    print(raw_ave_delay)
     print(raw_select_df)
 
 ######################################################################

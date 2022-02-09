@@ -24,8 +24,10 @@ def extract_load_data():
 #                          Tranformation data
 #     calcular promedio del tiempo de salida por dia por aeropuerto
 ######################################################################
-    raw_ave_df = raw_df['DEP_DELAY'], raw_df['ORIGIN'], raw_df['FL_DATE']
-    print(raw_ave_df)
+    raw_ave_delay = raw_df.avg['DEP_DELAY']
+    raw_select_df = raw_df['ORIGIN'], raw_df['FL_DATE']
+    print(raw_ave_delay)
+    print(raw_select_df)
 
 ######################################################################
 #              Load data to Postgres

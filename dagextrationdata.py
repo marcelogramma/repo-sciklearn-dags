@@ -32,7 +32,7 @@ def extract_load_data():
 #              Load data to Postgres
 #               insersion en la DB
 ######################################################################
-    raw_ave_df.to_sql(
+    raw_ave_delay.to_sql(
         name=config.TBL_NAME,
         con=config.engine,
         schema = "public",

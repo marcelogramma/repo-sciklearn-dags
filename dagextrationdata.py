@@ -37,7 +37,7 @@ def extract_load_data2009():
         name=config.TBL_NAME,
         con=config.engine,
         schema="public",
-        if_exists="update",
+        if_exists="append",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -72,7 +72,7 @@ def extract_load_data2010():
         name=config.TBL_NAME,
         con=config.engine,
         schema="public",
-        if_exists="update",
+        if_exists="append",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -107,7 +107,7 @@ def extract_load_data2011():
         name=config.TBL_NAME,
         con=config.engine,
         schema="public",
-        if_exists="update",
+        if_exists="append",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -142,7 +142,7 @@ def extract_load_data2012():
         name=config.TBL_NAME,
         con=config.engine,
         schema="public",
-        if_exists="update",
+        if_exists="append",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -177,7 +177,7 @@ def extract_load_data2013():
         name=config.TBL_NAME,
         con=config.engine,
         schema="public",
-        if_exists="update",
+        if_exists="append",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -213,7 +213,7 @@ def extract_load_data2014():
         name=config.TBL_NAME,
         con=config.engine,
         schema="public",
-        if_exists="update",
+        if_exists="append",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -249,7 +249,7 @@ def extract_load_data2015():
         name=config.TBL_NAME,
         con=config.engine,
         schema="public",
-        if_exists="update",
+        if_exists="append",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -278,14 +278,14 @@ def extract_load_data2016():
     print(raw_ave_delay2016)
 
 ######################################################################
-#              Load data to Postgres 2013
+#              Load data to Postgres 2016
 #               insersion en la DB
 ######################################################################
     raw_ave_delay2016.to_sql(
         name=config.TBL_NAME,
         con=config.engine,
         schema="public",
-        if_exists="update",
+        if_exists="append",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -321,7 +321,7 @@ def extract_load_data2017():
         name=config.TBL_NAME,
         con=config.engine,
         schema="public",
-        if_exists="update",
+        if_exists="append",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -357,7 +357,7 @@ def extract_load_data2018():
         name=config.TBL_NAME,
         con=config.engine,
         schema="public",
-        if_exists="update",
+        if_exists="append",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")

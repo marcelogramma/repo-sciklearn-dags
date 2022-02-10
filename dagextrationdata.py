@@ -34,7 +34,7 @@ def extract_load_data2009():
 #               insersion en la DB
 ######################################################################
     raw_ave_delay2009.to_sql(
-        name=config.TBL_NAME,
+        name=config.TBL_NAME2009,
         con=config.engine,
         schema="public",
         if_exists="replace",
@@ -69,7 +69,7 @@ def extract_load_data2010():
 #               insersion en la DB
 ######################################################################
     raw_ave_delay2010.to_sql(
-        name=config.TBL_NAME,
+        name=config.TBL_NAME2010,
         con=config.engine,
         schema="public",
         if_exists="replace",

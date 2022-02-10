@@ -27,7 +27,7 @@ def extract_load_data2009():
 #    raw_ave_delay = raw_df['DEP_DELAY'], raw_df['ORIGIN'], raw_df['FL_DATE']
     raw_ave_delay2009 = raw_df2009.groupby(['ORIGIN', 'FL_DATE'])['DEP_DELAY'].mean()
     print(f"The average delay by airport for day is")
-    print(raw_ave_delay)
+    print(raw_ave_delay2009)
 
 ######################################################################
 #              Load data to Postgres 2009
@@ -62,7 +62,7 @@ def extract_load_data2010():
 #    raw_ave_delay = raw_df['DEP_DELAY'], raw_df['ORIGIN'], raw_df['FL_DATE']
     raw_ave_delay2010 = raw_df2010.groupby(['ORIGIN', 'FL_DATE'])['DEP_DELAY'].mean()
     print(f"The average delay by airport for day is")
-    print(raw_ave_delay)
+    print(raw_ave_delay2010)
 
 ######################################################################
 #              Load data to Postgres 2010

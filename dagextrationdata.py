@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from os import sep
 from airflow import DAG
 import config as config
 from datetime import date
@@ -6,6 +7,7 @@ from airflow.models import DAG
 from airflow.utils.dates import days_ago
 import awswrangler as wr
 from airflow.operators.python_operator import PythonOperator
+import pandas as pd
 ## import s3fs
 
 ######################################################################
@@ -48,13 +50,9 @@ def extract_load_data2009():
 #               guardado en S3 como csv
 ######################################################################
 
-    wr.s3.to_csv(
-        df=pd.DataFrame(raw_ave_delay2009),
-        path=f"s3://{config.BUCKET_RAW}/raw_out/2009.csv",
-        sep=",", 
-        index=True,
-        header=True,
-    )
+    path_out=f"s3://{config.BUCKET_RAW}/raw_out/2009.csv"
+    raw_df2009 = wr.s3.to_csv(path=path_out, data=raw_ave_delay2009)
+
     print(f"Data written to {config.BUCKET_RAW}/raw-out/2009.csv")
 
 

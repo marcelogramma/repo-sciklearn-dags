@@ -52,7 +52,7 @@ def extract_load_data2009():
 #
 ######################################################################
 
-    path_out2009=f"s3://{config.BUCKET_RAW}/raw_out/2009.csv"
+    path_out2009=f"s3://{config.BUCKET_RAW}/raw-out/2009.csv"
     wr.s3.to_csv(
         df=raw_ave_delay2009,
         path=path_out2009,
@@ -98,6 +98,22 @@ def extract_load_data2010():
     )
     print(f"Data written to {config.DB_NAME}")
 
+
+######################################################################
+#              Guardado en S3 como csv 2010
+#
+######################################################################
+
+    path_out2010=f"s3://{config.BUCKET_RAW}/raw-out/2010.csv"
+    wr.s3.to_csv(
+        df=raw_ave_delay2010,
+        path=path_out2010,
+        sep=",",
+        index=True,
+    )
+
+    print(f"Data written to {config.BUCKET_RAW}/{path_out2010}")
+
 ######################################################################
 #
 #                     Extration Data from S3 2011
@@ -134,6 +150,23 @@ def extract_load_data2011():
     print(f"Data written to {config.DB_NAME}")
 
 ######################################################################
+#              Guardado en S3 como csv 2011
+#
+######################################################################
+
+    path_out2011=f"s3://{config.BUCKET_RAW}/raw-out/2011.csv"
+    wr.s3.to_csv(
+        df=raw_ave_delay2011,
+        path=path_out2011,
+        sep=",",
+        index=True,
+    )
+
+    print(f"Data written to {config.BUCKET_RAW}/{path_out2011}")
+
+
+
+######################################################################
 #
 #                     Extration Data from S3 2012
 ######################################################################
@@ -167,6 +200,23 @@ def extract_load_data2012():
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
+
+
+######################################################################
+#              Guardado en S3 como csv 2012
+#
+######################################################################
+
+    path_out2012=f"s3://{config.BUCKET_RAW}/raw-out/2012.csv"
+    wr.s3.to_csv(
+        df=raw_ave_delay2012,
+        path=path_out2012,
+        sep=",",
+        index=True,
+    )
+
+    print(f"Data written to {config.BUCKET_RAW}/{path_out2012}")
+
 
 ######################################################################
 #
@@ -202,6 +252,22 @@ def extract_load_data2013():
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
+
+
+######################################################################
+#              Guardado en S3 como csv 2013
+#
+######################################################################
+
+    path_out2013=f"s3://{config.BUCKET_RAW}/raw-out/2013.csv"
+    wr.s3.to_csv(
+        df=raw_ave_delay2013,
+        path=path_out2013,
+        sep=",",
+        index=True,
+    )
+
+    print(f"Data written to {config.BUCKET_RAW}/{path_out2013}")
 
 
 ######################################################################
@@ -241,6 +307,21 @@ def extract_load_data2014():
 
 
 ######################################################################
+#              Guardado en S3 como csv 2014
+#
+######################################################################
+
+    path_out2014=f"s3://{config.BUCKET_RAW}/raw-out/2014.csv"
+    wr.s3.to_csv(
+        df=raw_ave_delay2014,
+        path=path_out2014,
+        sep=",",
+        index=True,
+    )
+
+    print(f"Data written to {config.BUCKET_RAW}/{path_out2014}")
+
+######################################################################
 #
 #                     Extration Data from S3 2015
 ######################################################################
@@ -277,6 +358,22 @@ def extract_load_data2015():
 
 
 ######################################################################
+#              Guardado en S3 como csv 2015
+#
+######################################################################
+
+    path_out2015=f"s3://{config.BUCKET_RAW}/raw-out/2015.csv"
+    wr.s3.to_csv(
+        df=raw_ave_delay2015,
+        path=path_out2015,
+        sep=",",
+        index=True,
+    )
+
+    print(f"Data written to {config.BUCKET_RAW}/{path_out2015}")
+
+
+######################################################################
 #
 #                     Extration Data from S3 2016
 ######################################################################
@@ -299,7 +396,7 @@ def extract_load_data2016():
     print(raw_ave_delay2016)
 
 ######################################################################
-#              Load data to Postgres 2013
+#              Load data to Postgres 2016
 #               insersion en la DB
 ######################################################################
     raw_ave_delay2016.to_sql(
@@ -310,6 +407,22 @@ def extract_load_data2016():
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
+
+
+######################################################################
+#              Guardado en S3 como csv 2016
+#
+######################################################################
+
+    path_out2016=f"s3://{config.BUCKET_RAW}/raw-out/2016.csv"
+    wr.s3.to_csv(
+        df=raw_ave_delay2016,
+        path=path_out2016,
+        sep=",",
+        index=True,
+    )
+
+    print(f"Data written to {config.BUCKET_RAW}/{path_out2016}")
 
 
 ######################################################################
@@ -349,6 +462,22 @@ def extract_load_data2017():
 
 
 ######################################################################
+#              Guardado en S3 como csv 2017
+#
+######################################################################
+
+    path_out2017=f"s3://{config.BUCKET_RAW}/raw-out/2017.csv"
+    wr.s3.to_csv(
+        df=raw_ave_delay2017,
+        path=path_out2017,
+        sep=",",
+        index=True,
+    )
+
+    print(f"Data written to {config.BUCKET_RAW}/{path_out2017}")
+
+
+######################################################################
 #
 #                     Extration Data from S3 2018
 ######################################################################
@@ -382,6 +511,22 @@ def extract_load_data2018():
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
+
+
+######################################################################
+#              Guardado en S3 como csv 2018
+#
+######################################################################
+
+    path_out2018=f"s3://{config.BUCKET_RAW}/raw-out/2018.csv"
+    wr.s3.to_csv(
+        df=raw_ave_delay2018,
+        path=path_out2018,
+        sep=",",
+        index=True,
+    )
+
+    print(f"Data written to {config.BUCKET_RAW}/{path_out2018}")
 
 
 DAG_DEFAULT_ARGS = {'owner': 'MG', 'depends_on_past': False, 'start_date': datetime.utcnow(), 'retries': 1, 'retry_delay': timedelta(minutes=5)}

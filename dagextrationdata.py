@@ -51,7 +51,8 @@ def extract_load_data2009():
 ######################################################################
 
     path_out=f"s3://{config.BUCKET_RAW}/raw_out/2009.csv"
-    raw_df2009 = wr.s3.to_csv(path=path_out, data=raw_ave_delay2009)
+#    raw_df2009 = wr.s3.to_csv(path=path_out, data=raw_ave_delay2009)
+    raw_ave_delay2009.to_csv(path_out)
 
     print(f"Data written to {config.BUCKET_RAW}/raw-out/2009.csv")
 

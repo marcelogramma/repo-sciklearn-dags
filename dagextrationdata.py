@@ -6,8 +6,6 @@ from airflow.models import DAG
 from airflow.utils.dates import days_ago
 import awswrangler as wr
 from airflow.operators.python_operator import PythonOperator
-import s3fs
-
 
 ######################################################################
 #

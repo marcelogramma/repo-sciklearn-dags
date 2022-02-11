@@ -43,6 +43,18 @@ def extract_load_data2009():
     print(f"Data written to {config.DB_NAME}")
 
 ######################################################################
+#              Load data to Postgres 2009
+#               insersion en la S3 como csv
+######################################################################
+
+    raw_ave_delay2009.to_csv(
+        f"s3://{config.BUCKET_RAW}/raw-out/ave_delay_2009.csv",
+        index=True,
+    )
+    print(f"Data written to {config.BUCKET_RAW}/raw-out/ave_delay_2009.csv")
+
+
+######################################################################
 #
 #                     Extration Data from S3 2010
 ######################################################################

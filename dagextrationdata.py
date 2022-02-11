@@ -52,7 +52,7 @@ def extract_load_data2009():
 
     path_out2009=f"s3://{config.BUCKET_RAW}/raw_out/2009.csv"
     wr.s3.to_csv(
-        df=pd.DataFrame({raw_ave_delay2009}),
+        df={raw_ave_delay2009},
         path=path_out2009,
         sep=",",
     )

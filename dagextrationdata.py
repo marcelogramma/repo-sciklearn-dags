@@ -34,10 +34,10 @@ def extract_load_data2009():
 #               insersion en la DB
 ######################################################################
     raw_ave_delay2009.to_sql(
-        name=config.TBL_NAME,
+        name=config.TBL_NAME2009,
         con=config.engine,
         schema="public",
-        if_exists="append_skipdupes",
+        if_exists="replace",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -69,10 +69,10 @@ def extract_load_data2010():
 #               insersion en la DB
 ######################################################################
     raw_ave_delay2010.to_sql(
-        name=config.TBL_NAME,
+        name=config.TBL_NAME2010,
         con=config.engine,
         schema="public",
-        if_exists="append_skipdupes",
+        if_exists="replace",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -104,10 +104,10 @@ def extract_load_data2011():
 #               insersion en la DB
 ######################################################################
     raw_ave_delay2011.to_sql(
-        name=config.TBL_NAME,
+        name=config.TBL_NAME2011,
         con=config.engine,
         schema="public",
-        if_exists="append_skipdupes",
+        if_exists="replace",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -139,10 +139,10 @@ def extract_load_data2012():
 #               insersion en la DB
 ######################################################################
     raw_ave_delay2012.to_sql(
-        name=config.TBL_NAME,
+        name=config.TBL_NAME2012,
         con=config.engine,
         schema="public",
-        if_exists="append_skipdupes",
+        if_exists="replace",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -174,10 +174,10 @@ def extract_load_data2013():
 #               insersion en la DB
 ######################################################################
     raw_ave_delay2013.to_sql(
-        name=config.TBL_NAME,
+        name=config.TBL_NAME2013,
         con=config.engine,
         schema="public",
-        if_exists="append_skipdupes",
+        if_exists="replace",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -210,10 +210,10 @@ def extract_load_data2014():
 #               insersion en la DB
 ######################################################################
     raw_ave_delay2014.to_sql(
-        name=config.TBL_NAME,
+        name=config.TBL_NAME2014,
         con=config.engine,
         schema="public",
-        if_exists="append_skipdupes",
+        if_exists="replace",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -246,10 +246,10 @@ def extract_load_data2015():
 #               insersion en la DB
 ######################################################################
     raw_ave_delay2015.to_sql(
-        name=config.TBL_NAME,
+        name=config.TBL_NAME2015,
         con=config.engine,
         schema="public",
-        if_exists="append_skipdupes",
+        if_exists="replace",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -278,14 +278,14 @@ def extract_load_data2016():
     print(raw_ave_delay2016)
 
 ######################################################################
-#              Load data to Postgres 2016
+#              Load data to Postgres 2013
 #               insersion en la DB
 ######################################################################
     raw_ave_delay2016.to_sql(
-        name=config.TBL_NAME,
+        name=config.TBL_NAME2016,
         con=config.engine,
         schema="public",
-        if_exists="append_skipdupes",
+        if_exists="replace",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -318,10 +318,10 @@ def extract_load_data2017():
 #               insersion en la DB
 ######################################################################
     raw_ave_delay2017.to_sql(
-        name=config.TBL_NAME,
+        name=config.TBL_NAME2017,
         con=config.engine,
         schema="public",
-        if_exists="append_skipdupes",
+        if_exists="replace",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")
@@ -354,10 +354,10 @@ def extract_load_data2018():
 #               insersion en la DB
 ######################################################################
     raw_ave_delay2018.to_sql(
-        name=config.TBL_NAME,
+        name=config.TBL_NAME2018,
         con=config.engine,
         schema="public",
-        if_exists="append_skipdupes",
+        if_exists="replace",
         index=True,
     )
     print(f"Data written to {config.DB_NAME}")

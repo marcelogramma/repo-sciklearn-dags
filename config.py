@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 
 DB_USER = "postgres"
 DB_PASS = "postgres"
-IP = "ml-rds-postgres.cjbnjbp2plfh.us-east-1.rds.amazonaws.com"
+IP = "ml-rds-postgres.cfzuscevuyez.us-east-1.rds.amazonaws.com"
 DB_PORT = "5432"
 DB_NAME = "ml-rds-postgresfrom-s3"
 DB_MODELING = "ml-rds-postgres-modeling"

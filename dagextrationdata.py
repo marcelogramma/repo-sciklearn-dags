@@ -21,7 +21,7 @@ import boto3
 
 def extract_load_data2009():
     print(f"Getting data from {config.BUCKET_RAW}...")
-    raw_path2009 = f"s3://{config.BUCKET_RAW}/raw/2009.csv"
+    raw_path2009 = f"s3://{config.BUCKET_RAW}/raw-in/2009.csv"
     raw_df2009 = wr.s3.read_csv(path=raw_path2009)
     print(raw_df2009)
 
@@ -73,7 +73,7 @@ def extract_load_data2009():
 
 def extract_load_data2010():
     print(f"Getting data from {config.BUCKET_RAW}...")
-    raw_path2010 = f"s3://{config.BUCKET_RAW}/raw/2010.csv"
+    raw_path2010 = f"s3://{config.BUCKET_RAW}/raw-in/2010.csv"
     raw_df2010 = wr.s3.read_csv(path=raw_path2010)
     print(raw_df2010)
 
@@ -125,7 +125,7 @@ def extract_load_data2010():
 
 def extract_load_data2011():
     print(f"Getting data from {config.BUCKET_RAW}...")
-    raw_path2011 = f"s3://{config.BUCKET_RAW}/raw/2011.csv"
+    raw_path2011 = f"s3://{config.BUCKET_RAW}/raw-in/2011.csv"
     raw_df2011 = wr.s3.read_csv(path=raw_path2011)
     print(raw_df2011)
 
@@ -177,7 +177,7 @@ def extract_load_data2011():
 
 def extract_load_data2012():
     print(f"Getting data from {config.BUCKET_RAW}...")
-    raw_path2012 = f"s3://{config.BUCKET_RAW}/raw/2012.csv"
+    raw_path2012 = f"s3://{config.BUCKET_RAW}/raw-in/2012.csv"
     raw_df2012 = wr.s3.read_csv(path=raw_path2012)
     print(raw_df2012)
 
@@ -229,7 +229,7 @@ def extract_load_data2012():
 
 def extract_load_data2013():
     print(f"Getting data from {config.BUCKET_RAW}...")
-    raw_path2013 = f"s3://{config.BUCKET_RAW}/raw/2013.csv"
+    raw_path2013 = f"s3://{config.BUCKET_RAW}/raw-in/2013.csv"
     raw_df2013 = wr.s3.read_csv(path=raw_path2013)
     print(raw_df2013)
 
@@ -281,7 +281,7 @@ def extract_load_data2013():
 
 def extract_load_data2014():
     print(f"Getting data from {config.BUCKET_RAW}...")
-    raw_path2014 = f"s3://{config.BUCKET_RAW}/raw/2014.csv"
+    raw_path2014 = f"s3://{config.BUCKET_RAW}/raw-in/2014.csv"
     raw_df2014 = wr.s3.read_csv(path=raw_path2014)
     print(raw_df2014)
 
@@ -333,7 +333,7 @@ def extract_load_data2014():
 
 def extract_load_data2015():
     print(f"Getting data from {config.BUCKET_RAW}...")
-    raw_path2015 = f"s3://{config.BUCKET_RAW}/raw/2015.csv"
+    raw_path2015 = f"s3://{config.BUCKET_RAW}/raw-in/2015.csv"
     raw_df2015 = wr.s3.read_csv(path=raw_path2015)
     print(raw_df2015)
 
@@ -385,7 +385,7 @@ def extract_load_data2015():
 
 def extract_load_data2016():
     print(f"Getting data from {config.BUCKET_RAW}...")
-    raw_path2016 = f"s3://{config.BUCKET_RAW}/raw/2016.csv"
+    raw_path2016 = f"s3://{config.BUCKET_RAW}/raw-in/2016.csv"
     raw_df2016 = wr.s3.read_csv(path=raw_path2016)
     print(raw_df2016)
 
@@ -437,7 +437,7 @@ def extract_load_data2016():
 
 def extract_load_data2017():
     print(f"Getting data from {config.BUCKET_RAW}...")
-    raw_path2017 = f"s3://{config.BUCKET_RAW}/raw/2017.csv"
+    raw_path2017 = f"s3://{config.BUCKET_RAW}/raw-in/2017.csv"
     raw_df2017 = wr.s3.read_csv(path=raw_path2017)
     print(raw_df2017)
 
@@ -489,7 +489,7 @@ def extract_load_data2017():
 
 def extract_load_data2018():
     print(f"Getting data from {config.BUCKET_RAW}...")
-    raw_path2018 = f"s3://{config.BUCKET_RAW}/raw/2018.csv"
+    raw_path2018 = f"s3://{config.BUCKET_RAW}/raw-in/2018.csv"
     raw_df2018 = wr.s3.read_csv(path=raw_path2018)
     print(raw_df2018)
 
